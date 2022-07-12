@@ -1,0 +1,643 @@
+/*Smooth scrolling*/
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-family:sans-serif;
+    margin: 0;
+}
+h2{
+    text-align: center;
+    font-style:italic;
+    font-size: 40px;
+    font-variant: small-caps;
+}
+.content{
+    max-width: 1000px;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+/*Stylovani celeho headeru*/
+header{
+    background-color: #7e4700;
+    color: white;
+    height: 100vh;
+    border-bottom: 1px solid #E0870F;
+    background-image: url(./img/pexels-lukas-574069.jpg);
+    background-size: cover;
+    background-position: center center;
+    min-height:400px;
+}
+header h1,h2{
+    margin: 0;
+}
+/*Navigace: stylovani a zarovnani*/
+#nav{
+    position: sticky;
+    top:0;
+    z-index: 500;
+    padding: 12px;
+    background-color: #E0870F;
+    transition: 0.5s;
+}
+#nav .content{
+    display: flex;
+    justify-content: space-between;
+}
+#nav i{
+    color: white;
+    font-size: 30px;
+    transition: 0.5s;
+}
+#nav i:hover{
+    color: black;
+}
+#nav ul{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    list-style-type: none;
+}
+#nav li>a{
+    color:white;
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 1.5em;
+    transition: 0.5s;
+}
+#nav li:first-child{
+    padding: 0;
+}
+#nav li>a:hover{
+    color: 	black;
+}
+/*Styl jmena a "o mně" sekce*/
+header h2{
+    text-align: left;   
+}
+/*Offset scrollu pri kliknuti na odkaz*/
+.nadpis{
+    scroll-margin-top: 40px;
+    padding-bottom: 20px;
+}
+#jmeno{
+    font-variant: small-caps;
+    font-size: 80px;
+}
+#student{
+    font-size: 25px;
+    font-style: italic;
+}
+.aboutme{
+    position: absolute;
+    top: 70vh;
+}
+.aboutme p{
+    max-width: 600px;
+}
+/*Stylovani fotky a kontaktnich ikon*/
+.obrazek img{
+    padding-top: 10px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+.obrazek{
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.obrazek span{
+    font-size: 15px;
+    max-width: 320px;
+}
+.obrazek span i{
+    font-size: 40px;
+    transition: 0.5s;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.obrazek span i:first-child{
+    padding-left: 0px;
+}
+a:link{
+    text-decoration: none;
+    color: white;
+}
+a:visited{
+    text-decoration: none;
+    color: white;
+}
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+a:active {
+    text-decoration: none;
+    color: white;
+}
+
+
+main h2{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+/*Stylovani sekce o skolach ktere jsem navstevovl*/
+.vzdelani{
+    scroll-margin-top: 40px;
+    border-bottom: 1px solid #E0870F;
+}
+
+.vzdelani h2{
+    padding-bottom: 0;
+}
+
+.vzdelani .skola{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    gap: 20px;
+    border-bottom: 1px solid #E0870F;
+}
+.vzdelani .skola ul{
+    margin: 0;
+    margin-top: 10px;
+}
+.vzdelani .skola .fa-li{
+    padding-left: 30px;
+    color: #E0870F;
+}
+.vzdelani .skola li{
+    padding-left: 30px;
+}
+/*kazde liche vzdelani se zobrazi napravo stranky*/
+.vzdelani .skola:nth-child(odd){
+    flex-direction: row-reverse;
+}
+.vzdelani .skola:last-child{
+    border-bottom: none;
+}
+.vzdelani .skola img{
+    max-width: 180px;
+    padding-left: 0;
+    border-radius: 8px;
+    margin: 20px;
+    margin-left: 0;
+    box-shadow: 0 0 10px 2px lightgray;
+}
+/*Stylovani zapati*/
+footer{
+    padding: 40px;
+    background-color: #E0870F;
+    color: white;
+}
+footer .content{
+    display: flex;
+    justify-content: space-between;
+}
+/*Stylovani vasti o projektech*/
+.projekty{
+    scroll-margin-top: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #E0870F;
+}
+.projekty .content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
+    gap: 20px;
+}
+.projekty h2{
+    grid-row: 1 / 1;
+    grid-column: 1 / 4;
+}
+.projekty .project-table{
+    text-align: center;
+    max-width: 300px;
+    box-shadow: 0 0 10px 2px lightgray;
+    border-radius: 5px;
+    padding: 20px;
+    transition: 0.5s;
+}
+.projekty .project-table:hover{
+    box-shadow: 0 0 10px 2px #E0870F;
+}
+.projekty .project-table i{
+    font-size: 50px;
+}
+.projekty .project-table a{
+    font-weight: bold;
+    font-size: 22px;
+    transition: 0.5s;
+}
+.projekty .project-table h4{
+    margin-bottom: 0;
+}
+.projekty .project-table h3{
+    font-variant: small-caps;
+    transition: 0.5s;
+}
+.projekty .project-table:hover h3{
+    color: #E0870F;
+}
+.project-table  a:link{
+    text-decoration: none;
+    color: black;
+}
+.project-table  a:visited{
+    text-decoration: none;
+    color: black;
+}
+.project-table  a:hover {
+    text-decoration: none;
+    color: #E0870F;
+}
+.project-table a:active {
+    text-decoration: none;
+    color: black;
+}
+/*Styl lokalni navigace*/
+.skills  a:link{
+    text-decoration: none;
+    color: black;
+}
+.skills  a:visited{
+    text-decoration: none;
+    color: black;
+}
+.skills  a:hover {
+    text-decoration: none;
+    color: #E0870F;
+}
+.skills a:active {
+    text-decoration: none;
+    color: black;
+}
+.skills a{
+    transition: 0.5s;
+}
+.skills .content>ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    gap: 20px;
+    border-bottom: 1px solid #E0870F;
+    padding-bottom: 20px;
+}
+.skills li:first-child{
+    margin: 0;
+}
+.skills li{
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+}
+.skills li>a{
+    font-size: 20px;
+    font-weight: bold;
+}
+/*Styl sekvence o dovednostech*/
+.skills{
+    scroll-margin-top: 40px;
+    padding-bottom: 20px;
+}
+.skills .skills-tab img{
+    max-width: 260px;
+    max-height: 180px;
+    margin-right: 15px;
+}
+.skills-tab .skills-flex{
+    display: flex;
+}
+.skills-tab{
+    border-bottom: 1px solid #E0870F;
+    scroll-margin-top: 50px;
+}
+.skills-tab:last-child{
+    border-bottom: none;
+}
+.skills-tab .skills-flex li:first-child{
+    margin-left: 10px;
+}
+.skills h3{
+    padding-top: 30px;
+    text-align: center;
+    font-size: 25px;
+}
+/*Rozlozeni stranky pro mobily*/
+@media screen and (max-width: 600px) {
+    /*Vetsina elementu se da pod sebe a zmensi se*/
+    .obrazek{
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 0;
+        padding: 0;
+    }
+    .obrazek span{
+        max-width: 180px;
+    }
+    header .content{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #jmeno{
+        font-size: 50px;
+        padding-top: 20px;
+    }
+    .aboutme{
+        padding-top: 10px;
+    }
+    .aboutme p{
+        margin: 0;
+    }
+    .projekty .content{
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .projekty .project-table{
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .skills h3{
+        padding: 0;
+    }
+    .skills-tab .skills-flex{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .skills-tab .skills-flex img{
+        margin: 0;
+        float: none;
+        margin-bottom: 15px;
+    }
+
+    #nav ul{
+        display: flex;
+    }
+    #nav li{
+        padding-left: 10px;
+    }
+    #nav li>a{
+        font-size: 15px;
+        padding: 0;
+        text-align: center;
+    }
+    #nav .content{
+        display: flex;
+    }
+    #nav i{
+        font-size: 20px;
+    }
+    .skills .content>ul{
+        display: flex;
+        gap: 0;
+        padding: 0;
+        padding-bottom: 20px;
+        justify-content: center;
+    }
+    .vzdelani .skola{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+    }
+    .vzdelani .skola img{
+        margin: 0;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    .vzdelani .skola span{
+        margin-bottom: 20px;
+    }
+    .vzdelani .skola div:last-child{
+        max-width: 250px;
+    }
+    .vzdelani .skola:nth-child(odd){
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+    }
+    .skills .content{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    footer{
+        padding: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+/*Rozlozeni stranky pro male mobily*/
+@media screen and (max-width: 361px) {
+    .skills .content>ul a{
+        font-size: 17px;
+    }
+    #jmeno{
+        font-size: 40px;
+        padding-top: 20px;
+    }
+    .aboutme{
+        padding: 0;
+    }
+    #nav li>a{
+        font-size: 13px;
+        padding: 0;
+        text-align: center;
+    }
+    .nadpis{
+        padding-bottom: 10px;
+    }
+    .projekty .project-table{
+        max-width: 250px;
+    }
+}
+@media screen and (min-width: 1450px){
+    /*Zvetseni vsech elementu*/
+    .nadpis,.vzdelani,.projekty,.skills{
+        scroll-margin-top: 65px;
+    }
+    .content{
+        max-width: 1300px;
+    }
+    h2{
+        font-size: 50px;
+    }
+    #nav li>a{
+        font-size: 35px;
+        padding-left: 30px;
+    }
+    #nav i{
+        font-size: 40px;
+    }
+    .obrazek span{
+        font-size: 25px;
+        max-width: 550px;
+    }
+    .obrazek span i{
+        font-size: 50px;
+    }
+    .obrazek img{
+        width: 130px;
+        height: 130px;
+    }
+    #jmeno{
+        padding-top: 30px;
+        font-size: 100px;
+    }
+    .aboutme p{
+        font-size: 25px;
+        max-width: 1000px;
+    }
+    .vzdelani .skola{
+        font-size: 25px;
+    }
+    .vzdelani .skola img{
+        max-width: 300px;
+        width: 100%;
+    }
+    .vzdelani .skola .fa-li{
+        padding-left: 45px;
+    }
+    .vzdelani .skola li{
+        padding-left: 45px;
+    }
+
+    .projekty .content .project-table{
+        max-width: 450px;
+        align-items: center;
+        justify-self: center;
+        font-size: 25px;
+    }
+    .projekty .content .project-table h3{
+        font-size: 35px;
+    }
+    .projekty .project-table i{
+        font-size: 60px;
+    }
+    .projekty .project-table a{
+        font-size: 35px;
+    }
+
+    .skills .content>ul a{
+        font-size: 35px;
+    }
+    .skills h3{
+        font-size: 40px;
+    }
+    .skills .skills-flex{
+        font-size: 25px;
+        gap:30px;
+    }
+    .skills .skills-tab img{
+        max-width: 500px;
+        width: 125%;
+        max-height: 250px;
+        width: 125%;
+    }
+    footer .content span{
+        font-size: 25px;
+    }
+}
+/*Rozlozeni stranky pro velke monitory*/
+@media screen and (min-width: 2100px){
+    /*Zvetseni vsech elementu*/
+    .nadpis,.vzdelani,.projekty,.skills{
+        scroll-margin-top: 70px;
+    }
+    .content{
+        max-width: 1900px;
+    }
+    h2{
+        font-size: 80px;
+    }
+    #nav li>a{
+        font-size: 50px;
+        padding-left: 30px;
+    }
+    #nav i{
+        font-size: 60px;
+    }
+    .obrazek span{
+        font-size: 30px;
+        max-width: 650px;
+    }
+    .obrazek span i{
+        font-size: 60px;
+    }
+    .obrazek img{
+        width: 150px;
+        height: 150px;
+    }
+    #jmeno{
+        padding-top: 40px;
+        font-size: 150px;
+    }
+    .aboutme p{
+        font-size: 30px;
+        max-width: 1000px;
+    }
+    .vzdelani .skola{
+        font-size: 30px;
+    }
+    .vzdelani .skola img{
+        max-width: 400px;
+        width: 100%;
+    }
+    .vzdelani .skola .fa-li{
+        padding-left: 60px;
+    }
+    .vzdelani .skola li{
+        padding-left: 60px;
+    }
+
+    .projekty .content .project-table{
+        max-width: 580px;
+        align-items: center;
+        justify-self: center;
+        font-size: 30px;
+    }
+    .projekty .content .project-table h3{
+        font-size: 45px;
+    }
+    .projekty .project-table i{
+        font-size: 80px;
+    }
+    .projekty .project-table a{
+        font-size: 40px;
+    }
+
+    .skills .content>ul a{
+        font-size: 45px;
+    }
+    .skills h3{
+        font-size: 50px;
+    }
+    .skills .skills-flex{
+        font-size: 30px;
+        gap:30px;
+    }
+    .skills .skills-tab img{
+        max-width: 600px;
+        width: 150%;
+        max-height: 300px;
+        width: 150%;
+    }
+    footer .content span{
+        font-size: 30px;
+    }
+}

@@ -1,0 +1,157 @@
+%faktorial
+factorial(0 , 1) :- !.
+factorial(X, V) :- X1 is X - 1, factorial(X1, V1), V is X * V1.
+
+%fibonacci
+fib(0,0).
+fib(1,1).
+fib(X, V) :- X1 is X - 1, X2 is X - 2, fib(X1, V1), fib(X2, V2), V is V1 + V2.
+
+%je clen
+member([], _) :- fail.
+member([H|_], H) :- !.
+member([_|T], V) :- member(T, V).
+
+%sjednoceni 2 mnozin
+sjednoceni([], L, L).
+sjednoceni([H|T], L3, L) :- member(L3, H), sjednoceni(T, L3, L).
+sjednoceni([H|T], L3, [H|T1]) :- sjednoceni(T, L3, T1).
+
+%prunik 2 mnozin
+prunik([],_,[]).
+prunik([H|T], L3, [H|T1]) :- member(L3, H), prunik(T, L3, T1).
+prunik([_|T], L3, L) :- prunik(T, L3, L).
+
+%sjednoceni a pruni
+sjednoceni_prunik(L1,L2,L3,L) :- sjednoceni(L2, L3, X), prunik(X, L1, L).
+
+%sjednoceni tri mnozin
+sjednoceni_tri(L1,L2,L3,L) :- sjednoceni(L1,L2,X), sjednoceni(X,L3,L).
+
+%zda je to seznam
+je_list([]).
+je_list([_|_]).
+
+%inearni seznam
+linear([]).
+linear([H|T]) :- atomic(H), linear(T).
+
+%vetsi/mensi
+smaller(X,Y,Z):- X < Y, Z is X; Z is Y.
+bigger(X,Y,Z):- X > Y, Z is X; Z is Y.
+
+%minimum v seznamu
+min([H], H).
+min([H|T], X) :- min(T, X1), smaller(H, X1, X).
+
+%maximum v seznamu
+max([H], H).
+max([H|T], X) :- max(T, X1), bigger(H, X1, X).
+
+%soucet max a min
+soucet(L, V) :- max(L, X1), min(L, X2), V is X1 + X2.
+
+%pocet atomickych prvku
+atom_poc([], 0).
+atom_poc([H|T], X) :- atomic(H), atom_poc(T,X1), X is X1 + 1;
+    					atom_poc(H, X2), atom_poc(T, X3), X is X2 + X3.
+
+%monotonost seznamu
+monotonnost(X):- klesa(X) ; roste(X).
+
+klesa([]).
+klesa([_]).
+klesa([H1,H2|T]) :- H1 >= H2, klesa([H2|T]). 
+
+roste([]).
+roste([_]).
+roste([H1,H2|T]) :- H1 =< H2, roste([H2|T]). 
+
+%nejvyssi prvek v seznamu, zanorene seznamy
+max_c([H], X) :- je_list(H), max_c(H, X); X is H.
+max_c([H|T], X) :- je_list(H), max_c(H, X1), max_c(T, X2),!, bigger(X1, X2, X);
+    				max_c(T, X2), bigger(H, X2, X).
+
+%ziska index max cisla seznamu
+max_index(L, I) :- max(L, X) ,max_index1(L, X, I).
+
+max_index1([X|_], X, 0) :- !.
+max_index1([_|T], X, I) :- max_index1(T, X, I1), I is I1 + 1.
+
+%ziskani delky seznamu
+len([], 0).
+len([_|T], X) :- len(T, X1), X is X1 + 1.
+
+%ziskani medianu
+je_sudy(X) :- len(X, L), L mod 2 =:= 0.
+
+median(L, X) :- je_sudy(L), median_s(L,X); median_l(L,X).
+
+median_s(L, X) :- len(L, Y), Y1 is Y / 2, Y2 is Y1 - 1,
+    get_val_on_i(L, X1, Y1),
+    get_val_on_i(L, X2, Y2),
+    X is (X1 + X2)/2.
+    
+median_l(L,X) :- len(L, I), S is I // 2, get_val_on_i(L, X, S).
+
+get_val_on_i([H|_], X, I) :- I =:= 0, X is H.
+get_val_on_i([_|T], X, I) :- I1 is I - 1, get_val_on_i(T, X, I1).
+
+%do vystupniho seznamu da modulo kazde hodnoty vstupniho seznamu
+preved([H|T], X , [Y|T1]) :- preved(T, X, T1), Y is H mod X. 
+preved([], _, []).
+
+%procvicovani ziskani hodnoty na indexu
+vyber([H|_], I, X) :- I =:= 0, X is H.
+vyber([_|T], I, X) :- I1 is I - 1 ,vyber(T, I1, X).
+
+%prevedeni seznamu na mnozinu
+list_na_mn([], []).
+list_na_mn([H|T], M) :- member(T, H), list_na_mn(T, M).
+list_na_mn([H|T], [H|T1]) :- list_na_mn(T,T1).
+
+%secist posledni dva prvky seznamu
+posl([H1,H2], X) :- X is H1 + H2.
+posl([_|T], X) :- posl(T, X).
+
+%odstraneni predposledniho prvku v poli
+odstr([_, H2], [H2]).
+odstr([H1|T1], [H1|T2]) :- odstr(T1, T2).
+
+%soucet negativnich cisel v seznamu
+soucet_neg([], 0).
+soucet_neg([H|T], X) :- H < 0, soucet_neg(T, X1), X is H + X1.
+soucet_neg([_|T], X) :- soucet_neg(T, X).
+
+%soucet prvniho kladneho a posledniho zaporneho
+first_kl([H|_], H) :- H > 0. 
+first_kl([_|T], V) :- first_kl(T, V).
+
+zap_only([], []).
+zap_only([H|T], [H|T1]) :- H < 0 , zap_only(T, T1).
+zap_only([_|T],L) :- zap_only(T, L).
+
+last_zap(L, V) :- zap_only(L, L1), last_zap1(L1, V).
+last_zap1([H], H).
+last_zap1([_|T], V) :- last_zap1(T, V).
+
+soucet_kl_za(L, V) :- first_kl(L, X1), last_zap(L, X2), V is X1 + X2. 
+
+%zda-li list je mnozina
+je_mn([]).
+je_mn([H|T]) :- member(T, H),!,fail; je_mn(T).
+
+%soucet 2 nejvetsich
+max_souc(L, S) :- max(L, X1), odstran(L, X1, L1), max(L1, X2), S is X1 + X2. 
+
+odstran([], _, []).
+odstran([H|T], X ,T) :- H =:= X ,odstran(T, X, T).
+odstran([H|T], X ,[H|T1]) :- odstran(T, X, T1).
+
+%rozdelit do dvou seznamu kladne a zaporne, 0 se ignoruje
+neco([], [], []).
+neco([H|T], [H|T1], L3) :- H < 0, neco(T, T1, L3).
+neco([H|T], L2,[H|T1]) :- H > 0, neco(T, L2, T1).
+neco([_|T], L2, L3) :- neco(T, L2, L3).
+
+
