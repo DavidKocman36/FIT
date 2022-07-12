@@ -1,0 +1,50 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{ a4paper, total = {170mm, 240mm}, left = 20mm, top = 30mm,}
+\usepackage{times}
+\usepackage[unicode]{hyperref}
+\usepackage[czech]{babel}
+\usepackage{xurl}
+\usepackage{url}
+\DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}}
+\usepackage{float}
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+    \textsc{\Huge{Vysoké učení technické v~Brně} \vspace{0.4em} \\
+    \huge{Fakulta informačních technologií}}\\
+    \vspace{\stretch{0.382}}
+    {\LARGE{Typografie a publikování\,--\,4.\,projekt}\vspace{0.3em}\\
+    \Huge{Citace}}    
+    \vspace{\stretch{0.618}}
+\end{center}
+{\Large \today \hfill David Kocman}
+\end{titlepage}
+\section{Jak napsat správnou prezentaci}
+V~prvé řadě bychom si měli uvědomit, komu vlastně prezentujeme. Klíčem je udržet posluchačovu pozornost a zaujat jej.~\cite{prezentacePP} Usmívat se a udržovat oční kontakt je důležité, také nesmíme podcenit začátek prezentace.~\cite{tipyPrezENG}
+
+Dále na slajdech šetřit textem. Napsat jen odrážky základních témat a zbytek odvykládat ústně. Používat co nejvíc obrázky. Porušení tohohle pravidla může mít za následek nepřehlednost prezentace.~\cite{textPrez} S~animacemi opatrně, musí mít účel a správné použití.~\cite{prezentacePP}
+
+Níže přidávám nápad na téma takové prezentace.
+
+\section{Historie Informatiky}
+\subsection{První počítač ENIAC}
+Vývoj prvního počítače začal ve 40. letech 20. století na Univerzitě v~Pensylvánii pod vedením Johna Eckerta. Byl zamýšlen pro válečné účely, ale dokončen byl až v~roce 1945. ~\cite{ENIAChis}~\cite{21ENIAC}
+
+Roli procesoru zastupovalo až 17\,000 elektronek, dále se zde vyskytovaly například i relé. Dosahoval rychlosti 5000 sčítání nebo odčítání za sekundu a 385 násobení za sekundu.~\cite{matejkaBach} Rozpočet vývoje tohoto stroje byl mnohonásobně překročen. Z~očekávaných 150\,000 dolarů na 487\,000 dolarů (dnešních 7,2 milionu dolarů).~\cite{article21}
+
+\subsection{Čtvrtá generace}
+Začala roku 1971 a trvá až do teď. Vychází z~integrovaných obvodů předchozí generace, které právě roku 1971 vylepšil inženýr firmy Intel, Ted Hoff. Vymyslel Integrovaný obvod Intel 4004, obsahující všechny části počítače, čímž byl schopen pracovat sám. Zařízení označováno jako mikroprocesor je používáno ve všech počítačích až do dnešního dne.~\cite{janostikBach} Nejnovější verze např. Intel procesorů je 11. generace Tiger Lake procesorů, které většinu bude vyrábět firma TSMC.~\cite{articleChip}
+
+\subsection{Mooreův zákon}
+Roku 1965 spoluzakladatel firmy Intel, Gordon Moore, vyslovil, že složitost součástek v~počítačích se každý rok zdvojnásobí při zachování stejné ceny.~\cite{mooreLaw}
+
+\newpage
+\bibliographystyle{czechiso}
+\renewcommand{\refname}{citace}
+\bibliography{citace}
+\end{document}

@@ -1,0 +1,120 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+
+
+\title{Typografie a publikování}
+\subtitle{5. projekt -- Prezentace}
+\author{David Kocman, xkocma08}
+\institute{FIT VUT}
+\date{2021}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Pole}
+    \bigskip
+    \begin{itemize}
+        \item Pole je jedním z~nejstarších a nejpoužívanějších datových struktur
+        \item Vzniklo proto, aby se mohli reprezentovat vektory
+        \item Je to konečné seskupení prvků jednoho datového typu
+        \item Prvky pole mohou být také pole
+        \item Rozlišují se na dynamická a statická pole
+    \end{itemize}
+\end{frame}
+\begin{frame}{Práce s~poli}
+    \begin{itemize}
+        \item Prvky v~poli mají indexy, počínaje vždy 0
+        \item Můžeme s~polem provádět následující operace:
+        \begin{itemize}
+            \item Vypiš pole
+            \item Vlož prvek
+            \item Smaž prvek
+            \item Vyhledej prvek
+            \item Změň prvek
+            \item Seřaď prvky
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Práce s~poli\,--\,příklad}
+    \begin{itemize}
+        \item Příklad vypsání pole:
+    \end{itemize}
+    \bigskip
+    \texttt{pole [] = \{1,2,3\};}\\
+    \texttt{for(i < sizeof(pole))}\\
+    \{\\
+        \qquad\texttt{printf("\%d ", pole[i]);}\\
+    \}
+\end{frame}
+
+\begin{frame}{Práce s~poli\,--\,příklad}
+    \begin{itemize}
+        \item Příklad vyhledání prvku:
+    \end{itemize}
+    \bigskip
+    \texttt{pole [] = \{1,2,3\};}\\
+    \texttt{found = false;}\\
+    \texttt{var = 2;}\\
+    \texttt{for(i < sizeof(pole))}\\
+    \{\\
+        \qquad\texttt{if(pole[i] == var)}\\
+        \qquad\{\\
+        \qquad\qquad\texttt{found = true;}\\
+        \qquad\qquad\texttt{break;}\\
+        \qquad\}\\
+    \}
+\end{frame}
+
+\begin{frame}{Statické pole}
+    \begin{itemize}
+        \item Statické pole má fixní počet prvků a není možné jej měnit při běhu
+        \item Inicializuje a deklaruje se před během programu
+    \end{itemize}
+    \bigskip
+    \texttt{int pole[10]=\{1,2,3\};}
+\end{frame}
+\begin{frame}{Dynamické pole}
+    \begin{itemize}
+        \item Dynamické pole nemusí mít pevný počet prvků
+        \item Naplňuje se při běhu programu, např funkcí \texttt{malloc()}
+        \item Deklarované však může být před během aplikace
+        \item Po dokončení běhu programu je vhodné vždy alokované zdroje uvolnit funkcí \texttt{free()}
+    \end{itemize}
+    \bigskip
+    \texttt{int a [];}\\
+    \texttt{for(i < sizeof(pole)}\\
+    \{\\
+        \qquad\texttt{a[i] = malloc(sizeof(int));}\\
+        \qquad\texttt{a[i] = i;}\\
+    \}\\
+\end{frame}
+
+\begin{frame}{Pole}
+    \begin{figure}[h]
+        \centering
+        \scalebox{0.75}{\includegraphics{array.eps}}
+        \caption{Příklad pole, angl. Array}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Použití polí}
+    \begin{itemize}
+        \item V~jazyce C slouží pole charů jako string
+        \item Seznam
+        \item Ukládání více argumentů stejného typu pro příští užití např. v~loopu
+        \item Reprezentace vektorů
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Zdroje}
+\begin{itemize}
+    \item \href{https://www.tutorialsteacher.com/csharp/array-csharp}{https://www.tutorialsteacher.com/csharp/array-csharp}
+    \item \href{https://www.itnetwork.cz/navrh/algoritmy/algoritmy-datove-struktury/datove-struktury-pole-a-list}{https://www.itnetwork.cz/navrh/algoritmy/algoritmy-datove-struktury/datove-struktury-pole-a-list}
+\end{itemize}
+\end{frame}
+\end{document}

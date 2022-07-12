@@ -1,0 +1,416 @@
+#!/bin/sh
+#=====================================================================
+#Author: David Kocman
+#Login: xkocma08
+#Date of last change: 4.4.2021
+#=====================================================================
+
+
+export POSIXLY_CORRECT=yes
+export LC_NUMERIC=en_US.UTF-8
+
+#write help function
+help()
+{
+    echo "Usage: tradelog [FILTER] [COMMAND] [LOGS]"
+    echo " "
+    echo " -h or --help: help"
+    echo "FILTERS:"
+    echo " "
+    echo " -a DATETIME: after date, only logs AFTER (not including) date are considered"
+    echo " -b DATETIME: before date, only logs BEFORE (not including) date are considered"
+    echo " DATETIME format: YYYY-MM-DD HH:MM:SS"
+    echo " -t TICKER: show logs according to the market ticker"
+    echo " -w WIDTH: width of the longest graph line"
+    echo " "
+    echo "COMMANDS:"
+    echo " "
+    echo " list-tick: list of available market tickers"
+    echo " profit: list of closed positions profit"
+    echo " pos: list of positions, in descending order ad val"
+    echo " last-price: list of last known price for every ticker"
+    echo " hist-ord: number of transactions ad ticker histogram"
+    echo " graph-pos: graph of holding position values ad ticker"
+    echo " "
+    echo "Filters and commands can be written in any order."
+}
+
+#filter and ticker variables
+WIDTH=1000
+WIDTH_HIST=1
+TIME_AFTER="0000-00-00 00:00:00"
+TIME_BEFORE="9999-99-99 99:99:99"
+TICKER=""
+COMMAND=""
+
+#file variables
+GZ_FILE=""
+FILE=""
+
+#error variables
+ERROR=0
+ERROR_WIDTH=0
+
+#inputs
+#if no args were wtitten, write stdin
+if [ "$#" = 0 ]; then
+    cat
+fi
+
+#else work with written args and put them in the variables
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --help | -h)
+            help
+            exit 0
+            ;;
+        -a)
+            TIME_AFTER="$2"
+            shift
+            shift
+            ;;
+        -b)
+            TIME_BEFORE="$2"
+            shift
+            shift
+            ;;
+        -t)
+            TICKER="$2|$TICKER"
+            shift
+            shift
+            ;;
+        -w)
+            WIDTH="$2"
+            WIDTH_HIST="$2"
+            ERROR_WIDTH=$((ERROR_WIDTH+1))
+            shift
+            shift
+            ;;
+        list-tick | profit | pos | last-price | hist-ord | graph-pos )
+            COMMAND="$1"
+            ERROR=$((ERROR+1))
+            shift
+            ;;
+        *)
+            if [ $1 = *.gz ]; then
+                GZ_FILE="$1 $GZ_FILE"
+            else 
+                FILE="$1 $FILE"
+            fi
+            shift
+            ;;
+    esac
+done
+
+#error messages
+if [ $ERROR -ge 2 ]; then
+    echo "ERROR: Maximum of commands is 1!"
+    exit 1
+fi
+if [ $ERROR_WIDTH -ge 2 ]; then
+    echo "ERROR: Maximum of -w filter is 1!"
+    exit 1
+fi
+if [ $WIDTH -le 0 ] || [ $WIDTH_HIST -le 0 ]; then
+    echo "ERROR: Width parameter can not be less or equal than 0!"
+    exit 1
+fi
+
+#unzip gz file and/or cat a normal one
+if [ -n "$GZ_FILE" ] && [ -n "$FILE" ] ; then
+    INPUT_FILE="gzip -d -c $GZ_FILE | cat $FILE- | sort"
+fi
+if [ -n "$GZ_FILE" ] && [ -z "$FILE" ] ; then
+    INPUT_FILE="gzip -d -c $GZ_FILE | sort"
+fi
+if [ -z "$GZ_FILE" ] && [ -n "$FILE" ] ; then
+    INPUT_FILE="cat $FILE | sort"
+fi
+
+#filters
+if [ -n "$TICKER" ] ; then
+    FILTER_TICK="$INPUT_FILE | awk -F ';' '\$2 ~ /^($TICKER)$/ {print \$0}' | sort"
+else
+    FILTER_TICK="cat"
+fi
+FILTER="eval $INPUT_FILE | eval $FILTER_TICK | awk -F ';' '{ 
+    if(\$1 > \"$TIME_AFTER\" && \$1 < \"$TIME_BEFORE\") {
+        print \$0
+    } 
+}' | sort"
+
+#commands
+#write a list of ticks
+#return: list of all available tickers in alphabetical order
+if [ "$COMMAND" = "list-tick" ] ; then 
+    eval "$FILTER | awk -F ';' '{print \$2}' | sort -u "
+
+#overall profit
+#return: 2 decimal float of sell(price*amount)-buy(price*amount)
+elif [ "$COMMAND" = "profit" ] ; then 
+    eval "$FILTER | awk -F ';' '{
+    {
+        if(\$3 == \"sell\") {
+            sell_p += (\$4*\$6)
+            } 
+        else if(\$3 == \"buy\") {
+            buy_p += (\$4*\$6)
+        }
+    }
+    }
+    END{printf \"%.2f\", sell_p - buy_p}' | sort "
+
+#list of all tickers and their positions
+#return: list of tickers and their positions in order of the greatest position
+elif [ "$COMMAND" = "pos" ]; then
+    eval "$FILTER| sort -t \";\" -k 2,2 | awk -F ';' -v 'aux=0' '
+    {
+        {
+            if(aux == 0){
+                curr_tick = \$2
+                last_price=\$4
+                sell_p=0
+                buy_p=0
+            }
+            if(curr_tick == \$2){
+                last_price=\$4
+                if(\$3 == \"sell\") {
+                    sell_p += (\$6)
+                } 
+                else if(\$3 == \"buy\") {
+                    buy_p += (\$6)
+                }
+            }
+            else{
+                profit = buy_p-sell_p
+                position = profit * last_price
+
+                printf \"%-10s: %.2f\n\", curr_tick, position
+
+                curr_tick = \$2
+                last_price=\$4
+                buy_p=0
+                sell_p=0
+                
+                if(\$3 == \"sell\") {
+                    sell_p += (\$6)
+                } 
+                else if(\$3 == \"buy\") {
+                    buy_p += (\$6)
+                }
+            }
+            aux+=1
+        }
+        }
+        END{
+            profit = buy_p-sell_p
+            position = profit * last_price
+            printf \"%-10s: %.2f\n\", curr_tick, position
+
+        }'  |  awk -F ':' -v 'aux=0' '
+            {
+                array[\$2]=\$1
+                if(aux == 0){
+                    delkac = length(\$2)
+                }
+                new_delkac=length(\$2)
+                if(new_delkac>delkac){
+                    delkac=new_delkac
+                }
+                aux+=1
+            }END{
+                for(x in array){
+                    printf \"%-10s:%*.2f\n\", array[x],delkac,x
+                }
+            }' | sort -t \":\" -k 2,2 -n -r"
+        
+#list of every ticker's last price
+#return: list of alphabetical order of every ticker and it's last price
+elif [ "$COMMAND" = "last-price" ]; then
+    eval "$FILTER| sort -t \";\" -k 2,2 | awk -F ';' -v 'aux=0' '
+    {
+        {
+            if(aux == 0){
+                curr_tick = \$2
+                last_price=\$4
+            }
+            if(curr_tick == \$2){
+                last_price=\$4
+            }
+            else{
+                printf \"%-10s: %s\n\", curr_tick, last_price
+
+                curr_tick = \$2
+                last_price=\$4
+            }
+            aux+=1
+        }
+        }
+        END{
+            printf \"%-10s:%s\n\", curr_tick, last_price
+        }'| awk -F ':' -v 'aux=0' '
+            {
+                array[\$2]=\$1
+                if(aux == 0){
+                    delkac = length(\$2)
+                }
+                new_delkac=length(\$2)
+                if(new_delkac > delkac){
+                    delkac=new_delkac
+                }
+                aux+=1
+            }END{
+                for(x in array){
+                    printf \"%-10s:%*.2f\n\", array[x],delkac,x
+                }
+            }'| sort -t \":\" -k 1,1 "
+
+#order histogram
+#return: list of every ticker's count of orders 
+elif [ "$COMMAND" = "hist-ord" ]; then
+    eval "$FILTER | sort -t \";\" -k 2,2 | awk -F ';' -v 'width=$WIDTH_HIST' -v 'aux=0' '
+        BEGIN{
+            transactions=0
+        }
+        {
+            if(aux == 0){
+                curr_tick = \$2
+            }
+            if(curr_tick == \$2){
+                transactions+=1
+            }
+            else{
+                numOHash=int(transactions/width)
+                
+                if(numOHash == 0)
+                    printf \"%-10s:\n\",curr_tick
+
+                else{
+                    printf \"%-10s: \",curr_tick
+                    for(i=1; i <= numOHash;i++){
+                        printf\"#\"
+                        if(i == numOHash)
+                            printf \"\n\"
+                        }
+                }
+                curr_tick = \$2
+                transactions=1
+            }
+            aux+=1
+        }
+        END{
+            numOHash=int(transactions/width)
+            
+            if(numOHash == 0)
+                printf \"%-10s:\n\",curr_tick
+            else{
+                printf \"%-10s: \",curr_tick
+                for(i=1; i <= numOHash;i++){
+                    printf\"#\"
+                    if(i == numOHash)
+                        printf \"\n\"
+                    }
+                }
+            }'"
+
+#graph of every ticker's position
+#return: graph of every ticker's position in alphabetic order
+elif [ "$COMMAND" = "graph-pos" ]; then
+    eval "$FILTER| sort -t \";\" -k 2,2 |  awk -F ';' -v 'aux=0' '
+    {
+        {
+            if(aux == 0){
+                curr_tick = \$2
+                last_price=\$4
+                sell_p=0
+                buy_p=0
+            }
+            if(curr_tick == \$2){
+                last_price=\$4
+                
+                if(\$3 == \"sell\") {
+                    sell_p += (\$6)
+                } 
+                else if(\$3 == \"buy\") {
+                    buy_p += (\$6)
+                }
+            }
+            else{
+                profit = buy_p-sell_p
+                position = profit * last_price
+
+                printf \"%-10s: %.2f\n\", curr_tick, position
+
+                curr_tick = \$2
+                last_price=\$4
+                buy_p=0
+                sell_p=0
+                
+                if(\$3 == \"sell\") {
+                    sell_p += (\$6)
+                } 
+                else if(\$3 == \"buy\") {
+                    buy_p += (\$6)
+                }
+            }
+            aux+=1
+        }
+        }
+        END{
+            profit = buy_p-sell_p
+            position = profit * last_price
+            printf \"%-10s: %.2f\n\", curr_tick, position
+        }' | sort -t \":\" -k 2,2 -n -r | 
+        awk -F ':' -v 'aux=0' -v 'width=$WIDTH' '
+            function abs(value){
+                return (value<0 ? -value:value);
+            }
+            {
+                array[\$2]=\$1
+                if(aux == 0){
+                    highest_abs=abs(\$2)
+                }
+                new_abs=abs(\$2)
+                if(new_abs>highest_abs)
+                {
+                    highest_abs=new_abs
+                }
+                aux+=1
+            }
+            END{
+                for(x in array){
+                    
+                    graph_position=int((x/highest_abs)*width)
+                   
+                    if(graph_position==0){
+                        printf\"%-10s:\n\", array[x]
+                    }
+                    else{
+                        printf\"%-10s: \", array[x]
+                        if(graph_position < 0){
+                            graph_position = abs(graph_position)
+                            for(i=1; i<=graph_position; i++){
+                                printf\"!\"
+                                if(i==graph_position){
+                                    printf\"\n\"
+                                }
+                            }
+                        }
+                        else if(graph_position > 0){
+                            graph_position = abs(graph_position)
+                            for(i=1; i<=graph_position; i++){
+                                printf\"#\"
+                                if(i==graph_position){
+                                    printf\"\n\"
+                                }
+                            }
+                        }
+                    }
+                }
+            }'| sort -t ':' -k 1,1"
+
+#if no commands are provided, write filtered output to stdout
+elif [ -z "$COMMAND" ] ; then
+    eval "$FILTER"
+fi
+exit 0
