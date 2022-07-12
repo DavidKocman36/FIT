@@ -1,0 +1,711 @@
+/*
+ * Login: xkocma08
+ *
+ * Doplnte sve reseni.
+ *
+ * Nezapomente pridat strucne hromadne komentare pro pravidla jednotlivych sekci
+ * a pro netrivialni useky kodu (napr. bubliny v sekci #refs)
+ */
+/*vynulovani marginu a vycpavky v celem tele*/
+body{
+    margin:0;
+    padding: 0;
+}
+/*sirka stranky, font a odsazeni*/
+.content{
+    min-width:768px;
+    max-width: 1200px;
+    margin: auto;
+    font-family:PT Sans;
+    line-height:1.7;
+    padding-left:20px;
+    padding-right:20px;
+}
+/*responzivni pozadi nadpisu*/
+#header{
+    background: #ffffff;
+    background-image: url(../img/header.jpg);
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    min-height:400px;
+    height: 100vh;
+    padding-top:10px;
+}
+/*stylovani nadpisu*/
+#header h1{
+    font-size: 64px;
+    color:white;
+    padding-bottom:20px;
+    margin:0;
+}
+/*stylovani menu v nadpisu
+  dal jsem do mrizky navigaci, kontakt, media a logo pro pekne zobrazeni
+*/
+#header-menu{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+#navigation li{
+    font-size:13px;
+    display: inline-block;
+    padding: 5px 15px;
+    letter-spacing:0.05em;
+    text-transform: uppercase;
+}
+#navigation ul{
+    grid-column:1/1;
+    grid-row:2/2;
+    display: flex;
+    padding-left:20px;
+    margin:0;
+}
+#contacts{
+    text-align:right;
+    color:steelblue;
+    letter-spacing:0.05em;
+}
+#phone{
+    color:#bfbfbf;
+}
+#phone i{
+    color:steelblue;
+}
+/*zajisteni spravneho chovani odkazu*/
+#networks{
+    grid-column:2/2;
+    grid-row:2/2;
+    text-align:right;
+}
+#networks a:link{
+    text-decoration: none;
+    color:steelblue;
+}
+#networks a:visited{
+    text-decoration: none;
+    color:steelblue;
+}
+#networks a:hover {
+    text-decoration: none;
+    color:white;
+}
+#networks a:active {
+    text-decoration: underline;
+    color:steelblue;
+}
+#networks i{
+    font-size:24px;
+}
+/*zajisteni, aby vsechny odkazy v indexu alespon nebyly podtrzene*/
+a:link{
+    text-decoration: none;
+    color:#bfbfbf;
+}
+a:visited{
+    text-decoration: none;
+    color:#bfbfbf;
+}
+a:hover {
+    text-decoration: none;
+    color:white;
+}
+a:active {
+    text-decoration: none;
+    color:#bfbfbf;
+}
+/*ramecky kolem nabidky*/
+#navigation li:hover {
+    text-decoration: none;
+    color:#bfbfbf;
+    border:1px solid #bfbfbf;
+}
+#navigation li:hover a{
+    color:white;
+}
+/*animace ramecku*/
+#navigation li a{
+    transition: 0.5s;
+}
+#navigation li {
+    border:1px solid transparent;
+    transition: 0.5s;
+}
+/*stylovani loga*/
+#logo{
+    font-size:25px;
+    font-family:Special Elite;
+    color:steelblue;
+    padding-left:20px;
+}
+#logo a:link{
+    text-decoration: none;
+    color:steelblue;
+}
+#logo a:visited{
+    text-decoration: none;
+    color:steelblue;
+}
+#logo a:hover {
+    text-decoration: none;
+    color:white;
+}
+#logo a:active {
+    text-decoration: none;
+    color:steelblue;
+}
+/*odsazeni celeho nadpisu a tlacitka, tim se i zarovna*/
+#header-title{
+    padding-left:20px;
+    position: absolute;
+    bottom: 33vh;
+}
+/*stylovani tlacitka*/
+#get-started{
+    padding-top:20px;
+    padding: 20px;
+    border: 2px solid #bfbfbf;
+    border-radius:15px;
+    display:inline;
+    transition: 0.5s;
+}
+#get-started:hover{
+    color:white;
+    background-color:steelblue;
+    border: 2px solid steelblue;
+}
+#get-started:hover a{
+    color:white;
+}
+#get-started a{
+    transition: 0.5s;
+}
+
+/*services*/
+/*zarovnani textu na stred a nastaveni vycpavky*/
+#services .content{
+    text-align:center;  
+    padding-top:60px;
+    padding-bottom:80px; 
+}
+#services h2{
+    font-size: 40px;
+    text-transform: uppercase;
+}
+#services p{
+    color:#898989;
+    font-size: 18px;
+}
+/*rozdeleni do mrizky*/
+#services .content div{
+    display:grid;
+    padding-top:20px;
+    grid-template-columns: 1fr 1fr;  
+    position:relative;
+    gap:40px;
+}
+#services .content div div{
+    display:block;
+}
+#services .content>div{
+    margin:0 auto;
+    width:60%;
+}
+.services-card{
+    position:absolute;
+    width:300px;
+    box-shadow: 0 0 10px 2px #bfbfbf;
+    border-radius:5px;
+    padding:20px;
+    transition: 0.5s;
+}
+.services-card:hover{
+    box-shadow: 0 0 10px 2px steelblue;
+}
+/*ujisteni zobrazeni spravnych obrazku pri najeti mysi*/
+.services-card:hover img:nth-child(2){
+    background-color:steelblue;
+    display:block;
+    margin:auto;
+}
+.services-card:hover img:nth-child(1){
+    background-color:steelblue;
+    display:none;
+}
+.services-card img:nth-child(2){
+    display:none;
+}
+.services-card:hover h3{
+    color:steelblue;
+}
+.services-card div{
+    height:90px;
+}
+/*nastylovani vnitrku karty*/
+.services-card img{
+    height:50px;
+    padding:5px;
+    border:1px solid steelblue;
+    border-radius:5px;
+}
+#services .services-card h3{
+    font-size:24px;
+}
+#services .services-card p{
+    font-size:14px;
+    color:#bfbfbf;
+}
+
+/*about*/
+#about{
+    background-color:#f7f7f7;
+}
+/*nastaveni vycpavky*/
+#about .content{
+    padding-top:60px;
+    padding-bottom:80px;
+}
+/*nastaveni normalniho stavu obrazku*/
+.about-item img{
+    max-width: 40%;  
+    height: auto; 
+    display:inline-block;
+    transition: all .5s ease;
+    border-radius:5px;
+}
+/*stylovani obsahu*/
+#about h2{
+    margin:auto;
+    font-size: 32px;
+    padding-bottom:20px;
+}
+#about p{
+    color:#898989;
+    font-size: 18px;
+    line-height:1.7;
+    text-align:justify;
+    margin:auto;
+}
+/*zajisteni toho, ze obrazky se budou davat na stridacku*/
+.about-item:nth-child(odd) img{
+    display:flex;
+    float:left;
+    padding-right: 80px;
+    padding-bottom:40px;
+    padding-left: 0px;
+    padding-top:0px;
+   
+}
+.about-item:nth-child(even) img{
+    float:right;
+    padding-left:80px;
+    padding-top:40px;
+    padding-right:0px;
+    padding-bottom:0px;
+}
+/*zvetseni obrazku*/
+.about-item img:hover {
+    max-width:50%;
+}
+
+/*team*/
+/*rozdeleni sekce do gridu*/
+#team .content{
+    display:grid;
+    padding-top:60px;
+    padding-bottom:180px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr;  
+    justify-content: center;
+    align-items:center;
+    gap: 20px;
+}
+#team h2{
+    text-transform: uppercase;
+    grid-column:1/span 4;
+    margin:0;
+    text-align:center; 
+    font-size: 40px;
+    display:block; 
+}
+/*stylovani jednotlivych karet*/
+.team-card img{
+    width: 100%;
+    max-width: 285px;
+    height: auto;
+}
+.team-card{
+    max-height:500px;
+    max-width:285px;
+    box-shadow: 0 0 10px 2px #bfbfbf;
+    text-align:center;
+    border-radius:5px;
+    width: 100%;
+    height: auto;
+}
+/*stin za kartou pri najeti mysi*/
+.team-card:hover{
+    box-shadow: 0 0 10px 2px steelblue;
+}
+.team-card:hover h3{
+    color:steelblue;
+}
+/*nastylovani obsahu karty*/
+#team .team-card h3{
+    padding-top:10px;
+    margin:0;
+    font-size:24px;
+}
+#team h4{
+    margin:0;
+    color:#898989;
+}
+#team p{
+    margin:0;
+    line-height:1.7;
+    font-size:14px;
+    color:#bfbfbf;
+    padding-bottom:20px;
+}
+
+/*stats*/
+#stats{
+    border-top:1px dashed black;
+}
+/*rozdeleni sekce do flexboxu a zarovnani na stred*/
+#stats .content{
+    padding-top:60px;
+    padding-bottom:80px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    flex: 1 0 20px;
+}
+#stats .stats-card{
+    width:300px;
+    position:relative;
+    max-width:300px;
+    background-color:#4d4d4d;
+    border-radius:5px;
+    text-align:center;
+}
+/*stylovani obsahu karet*/
+#stats .stats-card h3{
+    
+    padding-top:35px;
+    color:white;
+    font-size:24px;
+    margin:0;
+}
+
+#stats .stats-card p{
+    color:#bfbfbf;
+    font-size:14px;
+    margin:0;
+    padding-bottom:15px;
+}
+/*karta zmodra pri najeti mysi*/
+#stats .stats-card:hover{
+    background-color:steelblue;
+}
+/*nastaveni pozice obrazku, aby vyrezaval kousek karty*/
+#stats .stats-card i{
+    position:absolute;
+    left:50%;
+    transform:translate(-50%, -50%);
+    padding:10px;
+    border-radius:50%;
+    background-color: white;
+    color:steelblue;
+    font-size:32px;
+}
+
+/*price*/
+#price{
+    background-color:#f7f7f7;
+}
+/*zarovnani textu na stred a nastaveni vycpavky*/
+#price .content{
+    padding-top:60px;
+    padding-bottom:80px;
+    text-align:center;
+}
+#price h2{
+    margin:0;
+    font-size: 32px;
+}
+/*nastylovani tlacitka a nastaveni pri prejeti mysi*/
+#price button{
+    border: 0.5px solid steelblue;
+    padding:20px;
+    border-radius:5px;
+    font-weight: bold;
+}
+#price button:hover{
+    background-color:steelblue;
+    color:white;
+}
+/*uprava tabulky*/
+#price table{
+    margin-left: auto;
+    margin-right: auto;
+    width:80%;
+    border-collapse: separate;
+    border-spacing: 0 20px;
+    text-align:left;
+}
+/*nastavi horni a spodni okraj radku tabulky*/
+#price td{
+    color:#898989;
+    border-top:dotted 2px steelblue;
+    border-bottom:dotted 2px steelblue;
+    padding:20px;
+}
+/*radek tabulky zbela pokud na nej najedeme mysi*/
+#price tbody tr:hover{
+    background-color:white;
+}
+/*a vsechny slova zmodraji*/
+#price tbody tr:hover td{
+    color:steelblue;
+}
+#price th{
+    padding:20px;
+}
+/*odsazeni prvniho prvku seznamu*/
+#price ul{
+    margin:0;
+    padding-inline-start:0px;
+    list-style: disc inside none;
+}
+#price li:nth-child(1) {
+    font-weight: bold;
+    list-style-type: none; 
+}
+
+/*refs*/
+/*zarovnani textu na stred a nastaveni vycpavky
+  rozdeleni sekce na flexbox pro pekne zobrazeni
+*/
+#refs .content{
+    padding-top:60px;
+    padding-bottom:80px;
+    display:flex;
+    gap:100px;
+    justify-content: center;
+}
+#refs .refs-card{
+    width:400px;
+    max-width:400px;
+}
+/*zarovnani fotky a jmena, stylovani*/
+#refs figure{
+    display:flex;
+    gap:10px;
+    color:#bfbfbf;
+    font-size:14px;
+    padding:10px 20px;
+}
+/*velikost obrazku a zaobleni do kruhu*/
+#refs img{
+    height:60px;
+    border-radius: 50%;
+}
+/*rozdeleni jednotlivych karet na grid
+  nastavi se styl bubliny
+*/
+#refs blockquote{
+    display:grid;
+    grid-template-columns: 0.1fr 1fr;
+    margin:0;
+    margin:0 40px;
+    background-color:#4d4d4d;
+    color:white;
+    padding:20px;
+    border-radius:5px;
+    position:relative;
+}
+/*pridani uvozovky pred text v bubline
+  pridany content se zvetsi a diky absolutni pozici se posune tak, aby zacinal na urovni pismen
+*/
+#refs blockquote:before{
+    grid-column:1/span 1;
+    content: '"';
+    font-size: 100px;
+    font-style: italic;
+    color:steelblue;
+    position:absolute;
+    left:-15px;
+    top:-23px;
+}
+#refs blockquote span:before{
+    width:20px;
+    height:20px;
+    content: ' ';
+    background-color:#4d4d4d;
+    clip-path: polygon(0 0, 0% 100%, 100% 0);
+    position:absolute;
+    left:14%;
+    top:98%;
+    
+}
+/*zmena vizualu bubliny pri najeti mysi*/
+#refs blockquote:hover{
+    background-color:steelblue;
+}
+#refs blockquote:hover span:before{
+    background-color:steelblue;
+}
+#refs blockquote:hover:before{
+    color:white;
+}
+#refs span{
+    grid-column:2/span 1;
+}
+
+/*contact*/
+#contact{
+    border-top:1px dashed black;
+}
+/**rozdeleni contactu na grid. V prvni polovine bude mapa a ve druhe forms*/
+#contact .content{
+    padding-top:60px;
+    padding-bottom:80px;
+    text-align:center;  
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 80px 400px; 
+    justify-content: center;
+    align-items:center;
+    gap:20px;
+}
+#contact h2{
+    font-size: 40px; 
+    text-transform: uppercase; 
+    grid-column:1/span 3;
+    margin:0;
+}
+/*rozlozeni form na celou druhou polovinu tabulky
+  dale form znova rozdelim, aby se mi lepe sazely jednotliva pole
+*/
+#contact form{
+    grid-column:2/span 1;
+    grid-row:2/span 1;
+    padding-top:10px;
+    display:grid; 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px 50px 150px 50px;
+    gap:20px;
+}
+/*stylovani a jednotlivych poli a ulozeni do gridu*/
+#contact-name{
+    margin:0;
+    border:1px solid steelblue;
+    border-radius:5px;
+    padding:10px;
+    grid-column:1/ span 1;
+    grid-row:1/span 1;
+}
+#contact-email{
+    margin:0;
+    border:1px solid steelblue;
+    border-radius:5px;
+    padding:10px;
+    grid-column:2/ span 1;
+    grid-row:1/span 1;
+}
+#contact-subject{
+    margin:0;
+    border:1px solid steelblue;
+    border-radius:5px;
+    padding:10px;
+    grid-column:1/ span 2;
+    grid-row:2/span 1;
+}
+#contact-message{
+    margin:0;
+    border:1px solid steelblue;
+    border-radius:5px;
+    padding:10px;
+    grid-column:1/ span 2;
+    grid-row:3/span 1;
+}
+
+#contact-name:focus{
+    outline: none;
+    border: 2px solid green;
+}
+#contact-email:focus{
+    outline: none;
+    border: 2px solid green;
+}
+#contact-subject:focus{
+    outline: none;
+    border: 2px solid green;
+}
+#contact-message:focus{
+    outline: none;
+    border: 2px solid green;
+}
+/*text se zabarvi cervene pri neplatnem vstupu*/
+input:invalid {
+  color: red;
+}
+/*nastaveni a nastylovani tlacitka*/
+#contact-submit{
+    background-color:steelblue;
+    border:1px solid steelblue;
+    color:white;
+    border-radius:5px;
+    grid-column: 1/ span 2;
+    width: 50%;
+    justify-self: center;
+}
+#contact-submit:hover{
+    background-color:green;
+}
+/*rozlozeni mapy*/
+#map{
+    height:400px;
+}
+
+/*footer*/
+#footer{
+    background-color:black;
+    color:#bfbfbf;
+}
+/*rozdeleni footeru na grid*/
+#footer .content{
+    padding:40px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    position:relative;
+}
+/*odsazeni odkazu ITW2022*/
+#footer a{
+    position:absolute;
+    right:4%;
+}
+/*stylovani odkazu*/
+#footer a:link{
+    text-decoration: none;
+    color:steelblue;
+    text-align:left;
+}
+#footer a:visited{
+    text-decoration: none;
+    color:steelblue;
+    text-align:left;
+
+}
+#footer a:hover {
+    text-decoration: none;
+    color:white;
+    text-align:left;
+
+}
+#footer a:active {
+    text-decoration: underline;
+    color:steelblue;
+    text-align:left;
+}
