@@ -11,7 +11,7 @@ Score: 15/15
 
 Description: A simple bash script for filtering a stock market logs.
 
-###Second project
+### Second project
 Score: 8/15
 
 Description: C program "Santa's workshop" creates multiple child processes which are controlled by semaphores.
