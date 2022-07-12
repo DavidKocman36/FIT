@@ -1,12 +1,12 @@
-## First year - first semester
+# First year - first semester
 
-### IEL
+## IEL
 
 Score: 9 / 12
 
 Description: Simple calculation of trivial electro circuits. 5th task is missing due to lack of time.
 
-### IUS
+## IUS
 
 Score: 17/24
 
