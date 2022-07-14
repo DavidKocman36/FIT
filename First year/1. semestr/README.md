@@ -1,12 +1,12 @@
 # First year - first semester
 
-## IEL
+## IEL - Electronics for Information Technology
 
 Score: 9 / 12
 
 Description: Simple calculation of trivial electro circuits. 5th task is missing due to lack of time.
 
-## IUS
+## IUS - Introduction to Software Engineering
 
 Score: 17/24
 
