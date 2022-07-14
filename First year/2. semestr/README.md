@@ -9,7 +9,7 @@ Decription: Create a finite state machine receiving and checking 8 digit binary 
 ### First project
 Score: 15/15
 
-Description: A simple bash script for filtering a stock market logs.
+Description: A simple bash script for filtering stock market logs.
 
 ### Second project
 Score: 8/15
@@ -29,7 +29,7 @@ Description: A collection of all 5 ITY projects:
 ## IVS
 Score: 14/18
 
-Description: Black/white box tests and Test driven development.
+Description: Black and white box tests and Test driven development.
 
 ## IZG
 Score: 15,1/18
