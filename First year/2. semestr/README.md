@@ -1,11 +1,11 @@
 # First year - second semester
 
-## INC
+## INC - Digital Systems Design
 Score: 11/20
 
 Decription: Create a finite state machine receiving and checking 8 digit binary code.
 
-## IOS 
+## IOS - Operating Systems
 ### First project
 Score: 15/15
 
@@ -16,7 +16,7 @@ Score: 8/15
 
 Description: C program "Santa's workshop" creates multiple child processes which are controlled by semaphores.
 
-## ITY
+## ITY - Typography and Publishing
 Score: 53,3/70
 
 Description: A collection of all 5 ITY projects:
@@ -26,12 +26,12 @@ Description: A collection of all 5 ITY projects:
   4. Citations
   5. Prezentation in LaTeX
   
-## IVS
+## IVS - Practical Aspects of Software Design
 Score: 14/18
 
 Description: Black and white box tests and Test driven development.
 
-## IZG
+## IZG - Computer Graphics Principles
 Score: 15,1/18
 
 Description: A collection of all 6 IZG excercises:
