@@ -15,7 +15,7 @@ Score: 9,9/10
 Description: Implementation of a binary search tree and hashtable.
 
 ## IFJ - Formal Languages and Compilers
-Score: 17/20 (12/15 programme, 5/5 documentation)
+Score: 17/20 (12/15 program, 5/5 documentation)
 
 Description: Implementation of a compiler based on Lua programming language. Team project.
 
